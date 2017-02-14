@@ -6,3 +6,5 @@ toolkit.xml
 *.sab
 ingest/common/com.ibm.streamsx.health.ingest/lib/
 ingest/physionet/com.ibm.streamsx.health.ingest.physionet/lib/
+
+*DS_STORE
