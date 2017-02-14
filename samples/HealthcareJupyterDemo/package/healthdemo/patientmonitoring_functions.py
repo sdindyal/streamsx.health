@@ -57,7 +57,47 @@ class DataPostProcessing:
 #                self.lastTime = point['ts']
 #        tup['data'] = dedup_list
 
-        return tup
+
+    # START REMODELLING DATA FOR SPLIT - Sam Dindyal
+
+        patient = tup['patient']
+        data = tup['data']
+        timestamp = [x for x in data if x['label'] == "timestamp"][0]
+        data.remove(timestamp)
+
+        poincare = [x for x in data if x['label'].startswith("Poincare")][0]
+        data.remove(poincare)
+
+        output = []
+
+
+        for d in data:
+            for t, s in zip(timestamp['valueSampledData']['values'], d['valueSampledData']['values']):
+                output.append({
+                    'patient': patient,
+                    'timestamp': {
+                        'valueSampledData': {
+                            'period': timestamp['valueSampledData']['period'],
+                            'value': t
+                        }
+                    },
+                    'data':
+                        {
+                            'label': d['label'],
+                            'valueSampledData': {
+                                'period':   d['valueSampledData']['period'],
+                                'initVal':  d['valueSampledData']['initVal'],
+                                'unit':     d['valueSampledData']['unit'],
+                                'value':    s,
+                                'gain':     d['valueSampledData']['gain']
+                                }
+                        }
+                })
+
+
+    # END REMODELLING DATA FOR SPLIT
+
+        return output
 
     def _get_index_from_label(self, tup, label):
         for idx in range(len(tup['data'])):
