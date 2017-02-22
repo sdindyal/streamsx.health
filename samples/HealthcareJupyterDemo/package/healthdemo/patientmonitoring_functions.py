@@ -74,29 +74,28 @@ class DataPostProcessing:
         for d in data:
             for t, s in zip(timestamp['valueSampledData']['values'], d['valueSampledData']['values']):
                 output.append({
-                    'patient': patient,
-                    'timestamp': {
+                        'label': d['label'],
                         'valueSampledData': {
-                            'period': timestamp['valueSampledData']['period'],
-                            'value': t
-                        }
-                    },
-                    'data':
-                        {
-                            'label': d['label'],
+                            'period':   d['valueSampledData']['period'],
+                            'initVal':  d['valueSampledData']['initVal'],
+                            'unit':     d['valueSampledData']['unit'],
+                            'value':    s,
+                            'gain':     d['valueSampledData']['gain']
+                            },
+
+                        'patient': patient,
+                        'timestamp': {
                             'valueSampledData': {
-                                'period':   d['valueSampledData']['period'],
-                                'initVal':  d['valueSampledData']['initVal'],
-                                'unit':     d['valueSampledData']['unit'],
-                                'value':    s,
-                                'gain':     d['valueSampledData']['gain']
-                                }
+                                'period': timestamp['valueSampledData']['period'],
+                                'value': t
+                            }
                         }
                 })
 
+                output.sort(key=lambda x: x['timestamp']['valueSampledData']['value'])
 
     # END REMODELLING DATA FOR SPLIT
-
+        # pprint(output, flush=True)
         return output
 
     def _get_index_from_label(self, tup, label):
