@@ -68,12 +68,15 @@ class DataPostProcessing:
         poincare = [x for x in data if x['label'].startswith("Poincare")][0]
         data.remove(poincare)
 
-        output = []
+        output  = []
+        counter = 0
 
 
         for d in data:
             for t, s in zip(timestamp['valueSampledData']['values'], d['valueSampledData']['values']):
-                output.append({
+                counter += 1
+                counter %= 5
+                if counter == 0: output.append({
                         'label': d['label'],
                         'valueSampledData': {
                             'period':   d['valueSampledData']['period'],
