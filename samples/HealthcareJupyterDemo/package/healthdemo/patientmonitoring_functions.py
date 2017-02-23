@@ -75,7 +75,7 @@ class DataPostProcessing:
         for d in data:
             for t, s in zip(timestamp['valueSampledData']['values'], d['valueSampledData']['values']):
                 counter += 1
-                counter %= 5
+                counter %= 25
                 if counter == 0: output.append({
                         'label': d['label'],
                         'valueSampledData': {
