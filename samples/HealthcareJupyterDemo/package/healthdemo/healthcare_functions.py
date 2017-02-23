@@ -62,16 +62,15 @@ class ReSample:
 
 class GenTimestamp:
     def __init__(self, sampling_rate):
-        self.time = int(time.time())
         self.ts = 0
         self.sampling_rate = sampling_rate
 
     def __call__(self, tup):
-        d = {'label' : 'timestamp', 'valueSampledData' : {'period' : {'unit' : 'ms', 'value' : (1/self.sampling_rate)*1000}, 'values' : [int(self.time*100000))]}}
+        d = {'label' : 'timestamp', 'valueSampledData' : {'period' : {'unit' : 'ms', 'value' : (1/self.sampling_rate)*1000}, 'values' : [int(time.time() + self.ts)* 100000]}}
         tup['data'].append(d)
 
         self.ts         += (1/self.sampling_rate)
-        self.time       += self.ts
+        self.time       += (1/self.sampling_rate)
 
         return tup
 
