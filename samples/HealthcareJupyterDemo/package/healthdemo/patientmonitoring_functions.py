@@ -69,12 +69,10 @@ class DataPostProcessing:
         data.remove(poincare)
 
         output  = []
-        counter = 1
-
 
         for d in data:
+            counter = 0
             for t, s in zip(timestamp['valueSampledData']['values'], d['valueSampledData']['values']):
-                counter += 1
                 if counter % 25 == 0: output.append({
                         'label': d['label'],
                         'valueSampledData': {
@@ -94,7 +92,10 @@ class DataPostProcessing:
                         }
                 })
 
-                output.sort(key=lambda x: x['timestamp']['valueSampledData']['value'])
+                counter += 1
+
+
+        output.sort(key=lambda x: x['timestamp']['valueSampledData']['value'])
 
     # END REMODELLING DATA FOR SPLIT
         # pprint(output, flush=True)
