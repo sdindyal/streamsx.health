@@ -67,10 +67,10 @@ class GenTimestamp:
         self.sampling_rate = sampling_rate
 
     def __call__(self, tup):
-        d = {'label' : 'timestamp', 'valueSampledData' : {'period' : {'unit' : 'ms', 'value' : (1/self.sampling_rate)*1000}, 'values' : [int((self.st + self.ts) * 1000)]}}
+        d = {'label' : 'timestamp', 'valueSampledData' : {'period' : {'unit' : 'ms', 'value' : (1/self.sampling_rate)*1000}, 'values' : [int(self.st * 1000)]}}
         tup['data'].append(d)
 
-        self.ts += (1/self.sampling_rate)
+        self.st += (1/self.sampling_rate)
 
         return tup
 
