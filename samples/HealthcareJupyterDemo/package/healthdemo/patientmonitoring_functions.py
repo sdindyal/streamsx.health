@@ -8,7 +8,8 @@ from itertools import filterfalse
 from . import ecg_streaming
 from .utils import get_sampled_data_values, add_coordinate_data
 
-import random
+import time
+import math
 
 """
 Expects a list of signal values as an input
@@ -70,12 +71,12 @@ class DataPostProcessing:
         poincare = [x for x in data if x['label'].startswith("Poincare")][0]
         data.remove(poincare)
 
-        temp = random.randint(34, 42)
+        temp = 38 + (4 * math.sin( time.time() ) )
         # Add dummy temperature data
         data.append({
             'label': 'Temperature',
             'valueSampledData': {
-                'values': [random.randint(temp, temp) for _ in range(125)],
+                'values': [temp for _ in range(125)],
                 'period': 8,
                 'initVal': 0,
                 'unit': 'C',
