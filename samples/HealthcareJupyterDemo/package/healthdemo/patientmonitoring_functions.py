@@ -70,11 +70,12 @@ class DataPostProcessing:
         poincare = [x for x in data if x['label'].startswith("Poincare")][0]
         data.remove(poincare)
 
+        temp = random.randint(34, 42)
         # Add dummy temperature data
         data.append({
             'label': 'Temperature',
             'valueSampledData': {
-                'values': [random.randint(34, 42) for _ in range(125)],
+                'values': [random.randint(temp, temp) for _ in range(125)],
                 'period': 8,
                 'initVal': 0,
                 'unit': 'C',
