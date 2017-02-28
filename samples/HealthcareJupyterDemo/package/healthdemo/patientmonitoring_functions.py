@@ -8,6 +8,8 @@ from itertools import filterfalse
 from . import ecg_streaming
 from .utils import get_sampled_data_values, add_coordinate_data
 
+import random
+
 """
 Expects a list of signal values as an input
 """
@@ -72,7 +74,7 @@ class DataPostProcessing:
         data.append({
             'label': 'Temperature',
             'valueSampledData': {
-                'values': list(range(0, 125)),
+                'values': [random.randint(34, 42) for _ in range(125)],
                 'period': 8,
                 'initVal': 0,
                 'unit': 'C',
