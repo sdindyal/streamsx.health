@@ -68,6 +68,14 @@ class DataPostProcessing:
         poincare = [x for x in data if x['label'].startswith("Poincare")][0]
         data.remove(poincare)
 
+        # Add dummy temperature data
+        data.append({
+            'label': 'Temperature',
+            'valueSampledData': {
+                'values': list(range(0, 125))
+            }
+        })
+
         output  = []
 
         for d in data:
@@ -94,7 +102,16 @@ class DataPostProcessing:
 
                 counter += 1
 
-
+        output.append({
+            'label': 'Temparature',
+            'patient': patient,
+            'timestamp': {
+                'valueSampledData': {
+                    'period': timestamp['valueSampledData']['period'],
+                    'value': t
+                }
+            }
+        })
         output.sort(key=lambda x: x['timestamp']['valueSampledData']['value'])
 
     # END REMODELLING DATA FOR SPLIT
