@@ -71,7 +71,7 @@ class DataPostProcessing:
         poincare = [x for x in data if x['label'].startswith("Poincare")][0]
         data.remove(poincare)
 
-        temp = int( 38 + (4 * math.sin( time.time() ) ) )
+        temp = int( 38 + (4 * math.sin( time.time() / 1000 ) ) )
         # Add dummy temperature data
         data.append({
             'label': 'Temperature',
