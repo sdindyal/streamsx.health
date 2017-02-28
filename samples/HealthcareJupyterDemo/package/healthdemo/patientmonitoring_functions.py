@@ -72,7 +72,11 @@ class DataPostProcessing:
         data.append({
             'label': 'Temperature',
             'valueSampledData': {
-                'values': list(range(0, 125))
+                'values': list(range(0, 125)),
+                'period': 8,
+                'initVal': 0,
+                'unit': 'C',
+                'gain': 0
             }
         })
 
