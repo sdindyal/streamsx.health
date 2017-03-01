@@ -90,7 +90,7 @@ class DataPostProcessing:
         for d in data:
             counter = 0
             for t, s in zip(timestamp['valueSampledData']['values'], d['valueSampledData']['values']):
-                if counter % 25 == 0 || d['label'] in waveform_labels: output.append({
+                if counter % 25 == 0 or d['label'] in waveform_labels: output.append({
                         'label': d['label'],
                         'valueSampledData': {
                             'period':   d['valueSampledData']['period'],
