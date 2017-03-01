@@ -84,12 +84,13 @@ class DataPostProcessing:
             }
         })
 
-        output  = []
+        output          = []
+        waveform_labels = ['ECG Lead II', 'ECG Lead V', 'Pleth', 'Resp']
 
         for d in data:
             counter = 0
             for t, s in zip(timestamp['valueSampledData']['values'], d['valueSampledData']['values']):
-                if counter % 25 == 0: output.append({
+                if counter % 25 == 0 || d['label'] in waveform_labels: output.append({
                         'label': d['label'],
                         'valueSampledData': {
                             'period':   d['valueSampledData']['period'],
